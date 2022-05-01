@@ -5,34 +5,48 @@ const card1 = document.querySelector("#card")
 card1.addEventListener("click", (e) => {
     if(viracartas.length<2){
     card1.classList.toggle("flip")
-    viracartas.push(card1)}
+    viracartas.push("card1")
+            card1.addEventListener("click",getData(),true)
+}
+
 })
 const card2 = document.querySelector("#card2")
 card2.addEventListener("click", (e1) => {
     if(viracartas.length<2){
         card2.classList.toggle("flip")
-        viracartas.push(card2)}
+        viracartas.push("card2")
+            card2.addEventListener("click",getData(),true)
+        }
+    
 })
 
 const card3 = document.querySelector("#card3")
 card3.addEventListener("click", (e2) => {
     if(viracartas.length<2){
         card3.classList.toggle("flip")
-        viracartas.push(card3)}
+            card3.addEventListener("click",getData(),true)
+        
+    }
 })
 
 const card4 = document.querySelector("#card4")
 card4.addEventListener("click", (e3) => {
     if(viracartas.length<2){
         card4.classList.toggle("flip")
-        viracartas.push(card4)}
+        viracartas.push("card4")
+            card4.addEventListener("click",getData(),true)
+        
+    }
 })
 
 const card5 = document.querySelector("#card5")
 card5.addEventListener("click", (e4) => {
     if(viracartas.length<2){
         card5.classList.toggle("flip")
-        viracartas.push(card5)}
+        viracartas.push("card5")
+            card5.addEventListener("click",getData(),true)
+        
+    }
 })
 
 function fazGet(url) {
@@ -96,6 +110,59 @@ function criarcombate(herois) {
     combat.appendChild(tdcombat)
     return combat;
 }
+
+function getData() {
+    var meuHeroi = [];
+    var cartas = [];
+    
+        for (var index = 1; index < 6; index++) {
+            meuHeroi = new Object();
+            meuHeroi.nome = document.getElementById("nome" + index).lastChild.textContent
+            //console.log("Nome" + index + " = " + document.getElementById("nome" + index).lastChild.textContent)
+    
+            meuHeroi.inteligencia = document.getElementById("int" + index).lastChild.textContent
+            //console.log("Inteligência" + index + " = " + document.getElementById("int" + index).lastChild.textContent)
+    
+            meuHeroi.velocidade = document.getElementById("speed" + index).lastChild.textContent
+            //console.log("Velocidade" + index + " = " + document.getElementById("speed" + index).lastChild.textContent)
+    
+            meuHeroi.durabilidade = document.getElementById("dura" + index).lastChild.textContent
+            //console.log("Durabilidade" + index + " = " + document.getElementById("dura" + index).lastChild.textContent)
+    
+            meuHeroi.poder = document.getElementById("power" + index).lastChild.textContent
+            //console.log("Poder" + index + " = " + document.getElementById("power" + index).lastChild.textContent)
+    
+            meuHeroi.combate = document.getElementById("combat" + index).lastChild.textContent
+            //console.log("Combate" + index + " = " + document.getElementById("combat" + index).lastChild.textContent)
+    
+            cartas.push(meuHeroi);
+    }
+    if(viracartas.length===2){
+        var vencedor1=[];
+        var vencedor2=[];
+        for(let j=0;j<6;j++){
+
+         if("card"+j===viracartas[0]){
+             jogador1=parseInt(cartas[j-1].inteligencia)+parseInt(cartas[j-1].velocidade)+parseInt(cartas[j-1].durabilidade)+parseInt(cartas[j-1].poder)+parseInt(cartas[j-1].combate);
+             console.log(jogador1)
+            vencedor1=cartas[j-1].nome;
+         }
+         if ("card"+j===viracartas[1]){
+             jogador2=parseInt(cartas[j-1].inteligencia)+parseInt(cartas[j-1].velocidade)+parseInt(cartas[j-1].durabilidade)+parseInt(cartas[j-1].poder)+parseInt(cartas[j-1].combate);
+             console.log(jogador2)
+             vencedor2=cartas[j-1].nome;
+          }
+          
+     }
+     }
+     if(jogador1>jogador2){
+        alert("jogador 1 Venceu " + ' com a carta ' +  vencedor1 )
+     }
+     if(jogador2>jogador1){
+        alert("jogador 2 Venceu " + 'com a carta ' +  vencedor2)
+     }
+}
+
 function main() {
 
     let data = fazGet("https://akabab.github.io/superhero-api/api/all.json")
@@ -119,7 +186,7 @@ function main() {
     // var meuHeroi = new heroi();
     // var cartas = [];
 
-
+    
     for (let i = 1; i < 6; i++) {
         criaHeroi(aleatorio(), i);
     }
@@ -154,18 +221,6 @@ function main() {
         }
        
        }
-       for(let j=1;j<6;j++){
-        if("card"+j==viracartas[0]){
-            jogador1=inteligencia[j]+velocidade[j]+durabilidade[j]+poder[j]+combate[j];
-            return jogador1
-            console.log("entro")
-        }
-         else("card"+j==viracartas[0]);{
-            jogador2=inteligencia[j]+velocidade[j]+durabilidade[j]+poder[j]+combate[j];
-            console.log("jogador2")
-         }
-    }
-
+       getData()
 }
-
 main()
